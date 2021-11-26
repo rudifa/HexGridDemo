@@ -52,6 +52,7 @@
 		9DB3F0AC275111DD00B9AD5B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		9DB3F0AE275111DD00B9AD5B /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		9DEA43C127515ECA00D6594D /* HexGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HexGrid; path = ../HexGrid; sourceTree = "<group>"; };
+		9DEA43C8275166FC00D6594D /* hexagonal-grids.ojs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "hexagonal-grids.ojs"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +97,7 @@
 				9DB3F096275111DD00B9AD5B /* macOS */,
 				9DB3F09F275111DD00B9AD5B /* Tests iOS */,
 				9DB3F0AB275111DD00B9AD5B /* Tests macOS */,
+				9DEA43C72751668700D6594D /* Docs */,
 				9DB3F090275111DD00B9AD5B /* Products */,
 				9DEA43C22751602B00D6594D /* Frameworks */,
 			);
@@ -161,6 +163,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9DEA43C72751668700D6594D /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				9DEA43C8275166FC00D6594D /* hexagonal-grids.ojs */,
+			);
+			path = Docs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

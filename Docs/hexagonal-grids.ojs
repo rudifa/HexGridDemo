@@ -1,0 +1,1497 @@
+md`
+# Hexagonal grids
+
+This notebook shows how to create a _game board_ in an **hexagonal** shape, made of many ‹hex grid› _cells_ — in other words, a game board with a **honeycomb** layout.
+
+It implements the \`cube_ring()\` and \`cube_spiral()\` [ring algorithms](https://www.redblobgames.com/grids/hexagons/#rings) of the [«Hex Grids»](https://www.redblobgames.com/grids/hexagons/) reference article from Red Blob Games / Amit Patel.
+
+`;
+
+html`<figure>
+  <img height="300" src="${await FileAttachment(/* "Screenshot 2021-05-27 at 01.21.51.png" */"https://static.observableusercontent.com/files/34562fa493849609e48fba1fa5fde53769796da1d530fe52ece28a5efcca10f77f60866e3688aeaaa30401a20269680ebc6016342953e5bc4df3c0a72d9f529c").url()}">
+  <figcaption><strong>Cube coordinates</strong> used to address the ‹hex grid› <em>cells</em> of our hexagonal <em>game board</em><br>Image: excerpt from the <a href="https://www.redblobgames.com/grids/hexagons/#coordinates-cube">Coordinate systems › Cube coordinates</a> section of <a href="https://www.redblobgames.com/grids/hexagons/">Hexagonal Grids</a> article.</figcaption>
+</figure>`
+
+md`
+---
+## Prolegomena
+
+We chose to use [cube coordinates](https://www.redblobgames.com/grids/hexagons/#coordinates-cube) for the ‹hex grid› cells, with a \`‹q:0;r:0;s:0›\` _origin_ at the **center** of the game board.
+
+The game board is represented by **an array**, containing the _cube coordinates_ of all its ‹hex grid› _cells_. We used two simple [ring algorithms](https://www.redblobgames.com/grids/hexagons/#rings), to populate this array.
+
+The **first _cell_** of the _game board_ is placed in the **center** of the board; and the following are placed on rings, growing outwards, in a spiral shape.
+`;
+
+md`
+---
+## Spiral rings
+
+Our \`hexSpiral()\` function implements the \`cube_spiral()\` pseudo-function, described in the [‹Rings› section](https://www.redblobgames.com/grids/hexagons/#rings) of the «Hexagonal Grids» article.
+`;
+
+html`<figure>
+  <img height="300" src="${await FileAttachment(/* "Screenshot 2021-05-27 at 01.23.51.png" */"https://static.observableusercontent.com/files/d2ecebc1cbee1f971efcf7d7768e1c9fb9ff274c00c1e79475d9a59260c4b71b6a5c50fe8b45da515df04a1c80b64a267fd7eaf0ff798298cbcbb19273c3a870").url()}">
+  <figcaption><strong>Spiral rings with a radius of 3</strong><br>Image: excerpt from the <a href="https://www.redblobgames.com/grids/hexagons/#rings-spiral">Spiral rings</a> section of <a href="https://www.redblobgames.com/grids/hexagons/">Hexagonal Grids</a> article.</figcaption>
+</figure>`
+
+md`
+### Sample result
+
+At a radius of 3, we get a spiral of 1 + 6 + 12 + 18 = 37 cells — the spiral is made of 3 rings of radius [1,2,3], plus the center cell.
+`;
+
+spiralR3 = hexSpiral( center, 3)
+
+md`
+### Algorithm
+`;
+
+function hexSpiral(center, radius) {
+  let results = [];
+  for (let k = 0; k <= radius; k++) {
+    const ring = hexRing(center, k);
+    //console.log(ring);
+    results = results.concat(ring);
+  }
+  return results;
+}
+
+md`
+---
+`;
+
+md`
+__Spiral radius \`r\` and the number of hexagons \`n\`__
+`;
+
+md`
+Counting the hexagonal rings around the center hexagon in the spiral we can see that each successive ring has 6 hexagons more than the preceding, which gives us the formula for the number of hexagons _n_ in a spiral of radius _r_: 
+
+${tex`\qquad n = 1 + 6 * \sum\limits_1^r i`}
+
+This formula is implemented in the function *spiral_n_of_r(r)* below.
+
+The function *spiral_r_of_n(n)* computes the inverse, the radius *r* needed to accomodate up to *n* hexagons.
+`
+
+// 
+function spiral_n_of_r(r) {
+  return 1 + r * (r + 1) * 3
+}
+
+// const version = '0.2.2'
+function spiral_r_of_n(n) {
+  for (let r = 0; ; r++) {
+    if (spiral_n_of_r(r) >= n) {
+      return r
+    }
+  }
+  return 0
+}
+
+example__range_of_r = range_inclusive(5)
+
+example__spiral_n_of_r = range_inclusive(5).map((r) => spiral_n_of_r(r))
+
+example__spiral_r_of_n = range_inclusive(25).map((n) => spiral_r_of_n(n))
+
+md`
+---
+## Single Ring
+
+Our \`hexRing()\` function implements the \`cube_ring()\` pseudo-function, described in the [‹Rings› section](https://www.redblobgames.com/grids/hexagons/#rings) of the «Hexagonal Grids» article.
+`;
+
+html`<figure>
+  <img height="300" src="${await FileAttachment(/* "Screenshot 2021-05-27 at 01.22.44.png" */"https://static.observableusercontent.com/files/08e5ecd05c0d980976baa01d71f37474b9b7724daf401d7a48575a8957642c6740b46bee03bb25d8abed4a73bbf2cfbac2101b10e013322548b3b831f03535c8").url()}">
+  <figcaption><strong>Ring with a radius of 3</strong><br>Image: excerpt from the <a href="https://www.redblobgames.com/grids/hexagons/#rings-single">Single rings</a> section of <a href="https://www.redblobgames.com/grids/hexagons/">Hexagonal Grids</a> article.</figcaption>
+</figure>`
+
+md`
+### Sample result
+
+At a radius of 3, we get a ring of 18 cells.
+`;
+
+ringR3 = hexRing( center, 3)
+
+md`
+### Algorithm
+`;
+
+function hexRing(center, radius) {
+  let results = [];
+  if( radius === 0) {
+    results.push( center);    
+  } else {
+    const dir4 = hexgrid.Hex.direction(4); // South-West
+    let hex = center.add( dir4.scale( radius));
+    for( let i = 0; i < 6; i++) {
+      for( let j = 0; j < radius; j++) {
+        results.push( hex);
+        hex = hex.neighbor( i);
+      }
+    }
+  }
+  return results;
+}
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+### Show me the code
+
+This is the first part (less tests) of the Amit Patel's code, as re-published on **github** in [/olange/arcade/packages/hexgrid](https://github.com/olange/arcade/blob/hexgrid-refactoring/packages/hexgrid/src/index.js) and on **npmjs** in [@gongfuio/hexgrid package](https://www.npmjs.com/package/@gongfuio/hexgrid)
+
+`;
+
+md`
+### OK, here is a copy
+
+\`\`\`
+// Generated code -- CC0 -- No Rights Reserved -- http://www.redblobgames.com/grids/hexagons/
+// NOTE: \`Tests\` class was moved to ../test/index.js
+
+export class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+export class Hex {
+  constructor(q, r, s) {
+    this.q = q;
+    this.r = r;
+    this.s = s;
+    if (Math.round(q + r + s) !== 0) throw 'q + r + s must be 0';
+  }
+  add(b) {
+    return new Hex(this.q + b.q, this.r + b.r, this.s + b.s);
+  }
+  subtract(b) {
+    return new Hex(this.q - b.q, this.r - b.r, this.s - b.s);
+  }
+  scale(k) {
+    return new Hex(this.q * k, this.r * k, this.s * k);
+  }
+  rotateLeft() {
+    return new Hex(-this.s, -this.q, -this.r);
+  }
+  rotateRight() {
+    return new Hex(-this.r, -this.s, -this.q);
+  }
+  static direction(direction) {
+    return Hex.directions[direction];
+  }
+  neighbor(direction) {
+    return this.add(Hex.direction(direction));
+  }
+  diagonalNeighbor(direction) {
+    return this.add(Hex.diagonals[direction]);
+  }
+  len() {
+    return (Math.abs(this.q) + Math.abs(this.r) + Math.abs(this.s)) / 2;
+  }
+  distance(b) {
+    return this.subtract(b).len();
+  }
+  round() {
+    var qi = Math.round(this.q);
+    var ri = Math.round(this.r);
+    var si = Math.round(this.s);
+    var q_diff = Math.abs(qi - this.q);
+    var r_diff = Math.abs(ri - this.r);
+    var s_diff = Math.abs(si - this.s);
+    if (q_diff > r_diff && q_diff > s_diff) {
+      qi = -ri - si;
+    } else if (r_diff > s_diff) {
+      ri = -qi - si;
+    } else {
+      si = -qi - ri;
+    }
+    return new Hex(qi, ri, si);
+  }
+  lerp(b, t) {
+    return new Hex(
+      this.q * (1.0 - t) + b.q * t,
+      this.r * (1.0 - t) + b.r * t,
+      this.s * (1.0 - t) + b.s * t,
+    );
+  }
+  linedraw(b) {
+    var N = this.distance(b);
+    var a_nudge = new Hex(this.q + 1e-6, this.r + 1e-6, this.s - 2e-6);
+    var b_nudge = new Hex(b.q + 1e-6, b.r + 1e-6, b.s - 2e-6);
+    var results = [];
+    var step = 1.0 / Math.max(N, 1);
+    for (var i = 0; i <= N; i++) {
+      results.push(a_nudge.lerp(b_nudge, step * i).round());
+    }
+    return results;
+  }
+}
+Hex.directions = [
+  new Hex(1, 0, -1),
+  new Hex(1, -1, 0),
+  new Hex(0, -1, 1),
+  new Hex(-1, 0, 1),
+  new Hex(-1, 1, 0),
+  new Hex(0, 1, -1),
+];
+Hex.diagonals = [
+  new Hex(2, -1, -1),
+  new Hex(1, -2, 1),
+  new Hex(-1, -1, 2),
+  new Hex(-2, 1, 1),
+  new Hex(-1, 2, -1),
+  new Hex(1, 1, -2),
+];
+export class OffsetCoord {
+  constructor(col, row) {
+    this.col = col;
+    this.row = row;
+  }
+  static qoffsetFromCube(offset, h) {
+    var col = h.q;
+    var row = h.r + (h.q + offset * (h.q & 1)) / 2;
+    if (offset !== OffsetCoord.EVEN && offset !== OffsetCoord.ODD) {
+      throw 'offset must be EVEN (+1) or ODD (-1)';
+    }
+    return new OffsetCoord(col, row);
+  }
+  static qoffsetToCube(offset, h) {
+    var q = h.col;
+    var r = h.row - (h.col + offset * (h.col & 1)) / 2;
+    var s = -q - r;
+    if (offset !== OffsetCoord.EVEN && offset !== OffsetCoord.ODD) {
+      throw 'offset must be EVEN (+1) or ODD (-1)';
+    }
+    return new Hex(q, r, s);
+  }
+  static roffsetFromCube(offset, h) {
+    var col = h.q + (h.r + offset * (h.r & 1)) / 2;
+    var row = h.r;
+    if (offset !== OffsetCoord.EVEN && offset !== OffsetCoord.ODD) {
+      throw 'offset must be EVEN (+1) or ODD (-1)';
+    }
+    return new OffsetCoord(col, row);
+  }
+  static roffsetToCube(offset, h) {
+    var q = h.col - (h.row + offset * (h.row & 1)) / 2;
+    var r = h.row;
+    var s = -q - r;
+    if (offset !== OffsetCoord.EVEN && offset !== OffsetCoord.ODD) {
+      throw 'offset must be EVEN (+1) or ODD (-1)';
+    }
+    return new Hex(q, r, s);
+  }
+}
+OffsetCoord.EVEN = 1;
+OffsetCoord.ODD = -1;
+export class DoubledCoord {
+  constructor(col, row) {
+    this.col = col;
+    this.row = row;
+  }
+  static qdoubledFromCube(h) {
+    var col = h.q;
+    var row = 2 * h.r + h.q;
+    return new DoubledCoord(col, row);
+  }
+  qdoubledToCube() {
+    var q = this.col;
+    var r = (this.row - this.col) / 2;
+    var s = -q - r;
+    return new Hex(q, r, s);
+  }
+  static rdoubledFromCube(h) {
+    var col = 2 * h.q + h.r;
+    var row = h.r;
+    return new DoubledCoord(col, row);
+  }
+  rdoubledToCube() {
+    var q = (this.col - this.row) / 2;
+    var r = this.row;
+    var s = -q - r;
+    return new Hex(q, r, s);
+  }
+}
+export class Orientation {
+  constructor(f0, f1, f2, f3, b0, b1, b2, b3, start_angle) {
+    this.f0 = f0;
+    this.f1 = f1;
+    this.f2 = f2;
+    this.f3 = f3;
+    this.b0 = b0;
+    this.b1 = b1;
+    this.b2 = b2;
+    this.b3 = b3;
+    this.start_angle = start_angle;
+  }
+}
+export class Layout {
+  constructor(orientation, size, origin) {
+    this.orientation = orientation;
+    this.size = size;
+    this.origin = origin;
+  }
+  hexToPixel(h) {
+    var M = this.orientation;
+    var size = this.size;
+    var origin = this.origin;
+    var x = (M.f0 * h.q + M.f1 * h.r) * size.x;
+    var y = (M.f2 * h.q + M.f3 * h.r) * size.y;
+    return new Point(x + origin.x, y + origin.y);
+  }
+  pixelToHex(p) {
+    var M = this.orientation;
+    var size = this.size;
+    var origin = this.origin;
+    var pt = new Point((p.x - origin.x) / size.x, (p.y - origin.y) / size.y);
+    var q = M.b0 * pt.x + M.b1 * pt.y;
+    var r = M.b2 * pt.x + M.b3 * pt.y;
+    return new Hex(q, r, -q - r);
+  }
+  hexCornerOffset(corner) {
+    var M = this.orientation;
+    var size = this.size;
+    var angle = (2.0 * Math.PI * (M.start_angle - corner)) / 6.0;
+    return new Point(size.x * Math.cos(angle), size.y * Math.sin(angle));
+  }
+  polygonCorners(h) {
+    var corners = [];
+    var center = this.hexToPixel(h);
+    for (var i = 0; i < 6; i++) {
+      var offset = this.hexCornerOffset(i);
+      corners.push(new Point(center.x + offset.x, center.y + offset.y));
+    }
+    return corners;
+  }
+}
+Layout.pointy = new Orientation(
+  Math.sqrt(3.0),
+  Math.sqrt(3.0) / 2.0,
+  0.0,
+  3.0 / 2.0,
+  Math.sqrt(3.0) / 3.0,
+  -1.0 / 3.0,
+  0.0,
+  2.0 / 3.0,
+  0.5,
+);
+Layout.flat = new Orientation(
+  3.0 / 2.0,
+  0.0,
+  Math.sqrt(3.0) / 2.0,
+  Math.sqrt(3.0),
+  2.0 / 3.0,
+  0.0,
+  -1.0 / 3.0,
+  Math.sqrt(3.0) / 3.0,
+  0.0,
+);
+\`\`\`
+`;
+
+md`
+---
+### So, what does the Amit's code do?
+
+It exports classes \`Point\`, \`Hex\`, \`OffsetCoord\`, \`DoubledCoord\`, \`Orientation\` and \`Layout\`.
+
+\`class Point\` models a simple pair of \`(x,y)\` cartesian coordinates.
+
+\`class Hex\` models a triplet of \`(q,r,s)\` hexagonal (aka cube) coordinates in a plane, which can be associated with the corresponding 3 axes at 120° degrees.
+
+\`Hex\` provides operations to add, subtract, scale, interpolate, find neighbors, e.t.c.
+
+\`class Layout\` models a mapping of the \`Hex\` coordinates to \`(x,y)\` pixel coordinates for plotting on a canvas. The mapping is defined by \`(orientation, size, origin)\`.
+
+\`origin (x,y)\` maps the origin \`(0,0,0)\` of the \`Hex\` coordinates onto canvas  pixel coordinates \`(x,y)\`.
+
+\`size (x,y)\` defines the size of hexagon diagonals, or distance between neighbouring \`Hex\` points. Normally \`x == y\`, for hexagons having the usual 60° symmetry when plotted.
+
+\`orientation\` has two predefined values, \`Layout.pointy\` and \`Layout.flat\`, where one of the hexagon diagonals is vertical for \`.pointy\` and horizontal for the \`.flat\` case. Other orientations are possible.
+
+
+
+`;
+
+md`
+---
+### Can we see this code in action?
+
+Yes.
+
+
+
+`;
+
+viewof orientationRadio_1 = radio({
+  title: "Select the orientation",
+  description: "",
+  options: [
+    { label: "flat", value: "flat" },
+    { label: "pointy", value: "pointy" }
+  ],
+  value: "flat"
+})
+
+viewof previousDropKeepRadio_1 = radio({
+  title: "Previous hexagons",
+  description: "",
+  options: [
+    { label: "drop", value: "drop" },
+    { label: "keep", value: "keep" }
+  ],
+  value: "drop"
+})
+
+viewof vectorLinesRadio_1 = radio({
+  title: "Vector lines",
+  description: "",
+  options: [
+    { label: "hide", value: "hide" },
+    { label: "show", value: "show" }
+  ],
+  value: "hide"
+})
+
+viewof opsRadio_1 = radio({
+  title: "Select the operation",
+  description: "Click to create operands; click the center hexagon to clear",
+  options: [
+    { label: "add", value: "add" },
+    { label: "subtract", value: "subtract" },
+    { label: "scale(t)", value: "scale(t)" },
+    { label: "rotateLeft", value: "rotateLeft" },
+    { label: "rotateRight", value: "rotateRight" },
+    { label: "direction", value: "direction" },
+    { label: "neighbor", value: "neighbor" },
+    { label: "diagonalNeighbor", value: "diagonalNeighbor" },
+    { label: "len", value: "len" },
+    { label: "distance", value: "distance" },
+    { label: "lerp(t)", value: "lerp(t)" },
+    { label: "lerp(t)+round", value: "lerp(t)+round" },
+    { label: "linedraw", value: "linedraw" }
+  ],
+  value: "add"
+})
+
+viewof t_1 = Inputs.range([-0.3, 1.3], {
+  step: 0.01,
+  value: 0.5,
+  label: md`t`,
+  disabled: !(opsRadio_1.startsWith("lerp") || opsRadio_1.startsWith("scale"))
+})
+
+viewof boardView_1 = new BoardView({
+  hexagonSide: 15,
+  orientation: orientation_1,
+  cellsAndOps: cellsAndOps_1
+}).render()
+
+cellsAndOps_1 = new CellsAndOps()
+
+orientation_1 = orientationRadio_1 == "flat"
+  ? hexgrid.Layout.flat
+  : hexgrid.Layout.pointy
+
+hr()
+
+md`
+### Implementing demos on top of hexgrid aka redblobgames grids
+<br/>
+We need a collection of \`Hex\` points, which we shall place into the class \`BoardModel\` and its subclasses.
+
+We also need a \`Layout\` instance and a \`BoardView\` class with a function \`.render\`, and a class like \`CellsAndOps\` to handle the operations to demonstrate.
+<br/>
+`;
+
+md`
+##### define \`class BoardModel\`
+`;
+
+class BoardModel {
+  constructor(options) {
+    this.hexCenter = new hexgrid.Hex(0, 0, 0);
+    this.hexPoints = [];
+  }
+}
+
+md`
+##### define \`class FirstFewPoints\`
+`;
+
+class FirstFewPoints extends BoardModel {
+  constructor(options) {
+    super(options);
+    this.hexPoints = [
+      new hexgrid.Hex(0, 0, 0),
+      new hexgrid.Hex(2, 3, -5),
+      new hexgrid.Hex(1, 3, -4)
+    ];
+  }
+}
+
+viewof ffp = new FirstFewPoints()
+
+md`
+##### define \`class BoardLayout\`
+`;
+
+/*
+class BoardLayout extends hexgrid.Layout {
+  constructor(options) {
+    const orientation = options?.orientation ?? hexgrid.Layout.flat;
+    const hexagonSide = options?.hexagonSide ?? 20;
+    const size = new hexgrid.Point(hexagonSide, hexagonSide);
+    const origin = options?.origin ?? new hexgrid.Point(350, 200);
+    super(orientation, size, origin);
+  }
+}
+*/
+class BoardLayout extends hexgrid.Layout {
+  constructor() {
+    super(
+      hexgrid.Layout.flat,
+      new hexgrid.Point(30, 30),
+      new hexgrid.Point(350, 200)
+    );
+  }
+}
+
+viewof boardLayout1 = new BoardLayout()
+
+bl21 = new hexgrid.Layout(
+  hexgrid.Layout.flat,
+  new hexgrid.Point(20, 30), // hexagon size
+  new hexgrid.Point(300, 150)
+)
+
+viewof bl3 = new hexgrid.Layout(
+  hexgrid.Layout.flat,
+  new hexgrid.Point(10, 15), // hexagon size
+  new hexgrid.Point(300, 150)
+)
+
+// however, I get an error when passing in an instance of hexgrid.Layout
+
+//viewof bv22 = RuntimeError: e.addEventListener is not a function
+//viewof bv22 = new BoardView2({ layout: bl3 })
+
+// OK, BoardView2 accepts an inline new hexgrid.Layout
+/*
+viewof bv21 = new BoardView2({
+  height: 200,
+  layout: new hexgrid.Layout(
+    hexgrid.Layout.pointy,
+    new hexgrid.Point(15, 15), // hexagon size
+    new hexgrid.Point(350, 100)
+  )
+}).render()
+*/
+
+md`
+---
+`;
+
+md`
+##### define \`class SpiralBoard
+`;
+
+class SpiralBoard extends BoardModel {
+  constructor(options) {
+    super(options);
+    this.spiralRadius = options?.spiralRadius ?? 1;
+    this.hexPoints = hexSpiral(this.hexCenter, this.spiralRadius);
+  }
+}
+
+viewof sp = new SpiralBoard()
+
+md`
+##### define \`class BoardView\`
+`;
+
+/**
+ * Draws a hexgrid to the canvas
+ *
+ * @param {*} options.width - canvas width, pixels
+ * @param {*} options.height - canvas height, pixels
+ * @param {*} options.hexagonSide - pixels
+ * @param {*} options.fillStyle - fill color
+ * @param {*} options.strokeStyle - stroke color
+ * @param {*} options.orientation - layout orientation
+ * @param {*} options.board - a Board instance to be viewed
+ * @param {*} options.cellsAndOps - a CellsAndOps2 instance to be viewed
+ */
+class BoardView {
+  constructor(options) {
+    this.width = options.width ?? 860;
+    this.height = options.height ?? 400;
+    this.hexagonSide = options.hexagonSide ?? 20;
+    this.fillStyle = options.fillStyle ?? "#777777";
+    this.strokeStyle = options.strokeStyle ?? "#00ff00";
+    this.orientation = options.orientation ?? hexgrid.Layout.flat;
+    this.board = options.board ?? new SpiralBoard();
+
+    this.context = DOM.context2d(this.width, this.height);
+    this.canvas = this.context.canvas;
+    this.canvas.style.border = "1px solid blue";
+
+    // sources of hexPoints
+    this.cellsAndOps = options.cellsAndOps ?? new CellsAndOps();
+    this.touched = []; // hexPoint
+
+    console.log("BoardView2 options.layout", options.layout);
+
+    this.layout =
+      options.layout ??
+      new hexgrid.Layout(
+        this.orientation,
+        new hexgrid.Point(this.hexagonSide, this.hexagonSide), // hexagon size
+        new hexgrid.Point(this.width / 2, this.height / 2)
+      ); // center
+
+    this.attachClickHandler();
+
+    // return the xy coordinates of the event touch point
+    this.xyPointFor = (event) => {
+      const rect = event.target.getBoundingClientRect();
+      const x = event.clientX - rect.left; //x position within the canvas.
+      const y = event.clientY - rect.top; //y position within the canvas.
+      return { x: x, y: y };
+    };
+  }
+
+  // convert Hex to pixel Point
+
+  // convert to xyPoint preserving other fields
+  xyPoint(hexPoint) {
+    let xyPoint = this.layout.hexToPixel(hexPoint);
+    return {
+      x: xyPoint.x,
+      y: xyPoint.y,
+      fillStyle: hexPoint.fillStyle,
+      text: hexPoint.text
+    };
+  }
+
+  // unused
+  xyPoints() {
+    return this.board.hexPoints.map((hexPoint, i) =>
+      this.xyPoint(hexPoint, d3.schemeCategory10[i % 10])
+    );
+  }
+
+  // combine input hexPoint arrays and convert to xyPoints for plotting
+
+  combinedArrays() {
+    let combined = [
+      ...this.board.hexPoints.map((hexPoint) =>
+        this.addFillStyle(hexPoint, "#00f")
+      ),
+      ...this.touched.map((hexPoint) => this.addFillStyle(hexPoint, "#fff0")),
+      ...this.cellsAndOps.hexPoints
+        .map((hexPoint) => this.addCoordsText(hexPoint))
+        .map((hexPoint) => this.addFillStyle(hexPoint, "#ff0"))
+    ];
+    //console.log("combinedArrays combined=", combined);
+    const xyPoints = combined.map((hexPoint) => this.xyPoint(hexPoint));
+    //console.log("combinedArrays xyPoints=", xyPoints);
+
+    return xyPoints;
+  }
+
+  // model presentation
+
+  addCoordsText(hexPoint) {
+    const nts = (x) => Number(x.toFixed(3)); // no trailing zeros
+    return {
+      ...hexPoint,
+      text: `${nts(hexPoint.q)}, ${nts(hexPoint.r)}, ${nts(hexPoint.s)}`
+    };
+  }
+
+  addFillStyle(hexPoint, fillStyle) {
+    return {
+      ...hexPoint,
+      fillStyle: fillStyle
+    };
+  }
+
+  // render + helpers
+
+  renderHexagonsEtc(combinedArray, infoText) {
+    //console.log("renderHexagons combinedArray", this.combinedArrays());
+
+    const context = this.context;
+    context.clearRect(0, 0, this.width, this.height);
+    const xy00Center = this.layout.pixelToHex({ x: 0, y: 0 });
+    const xy00PolygonCorners = this.layout.polygonCorners(xy00Center);
+
+    for (const xyPoint of combinedArray) {
+      this.plotHexagon(xy00PolygonCorners, xyPoint);
+    }
+    this.plotText(this.cellsAndOps.info);
+    console.table(this.cellsAndOps.info);
+
+    this.plotLines();
+  }
+
+  plotHexagon(xy00PolygonCorners, xyPoint) {
+    //console.log("plotHexagon", xyPoint);
+    const context = this.context;
+    context.beginPath();
+    for (const corner of xy00PolygonCorners) {
+      context.lineTo(xyPoint.x + corner.x, xyPoint.y + corner.y);
+    }
+    context.closePath();
+    context.fillStyle = xyPoint.fillStyle;
+    context.fill();
+
+    context.lineWidth = 2;
+    context.strokeStyle = "#0ff";
+    context.stroke();
+
+    if (xyPoint.text) {
+      context.textBaseline = "middle";
+      context.textAlign = "center";
+      context.fillStyle = "black";
+      context.fillText(`${xyPoint.text}`, xyPoint.x, xyPoint.y);
+    }
+  }
+
+  // plot the info text at the bottom of the canvas
+  plotText(info) {
+    if (info) {
+      const ctx = this.context;
+      //ctx.font = "16px Arial";
+      ctx.textAlign = "left";
+      ctx.fillStyle = "black";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(`${info}`, 0, this.height);
+    }
+  }
+
+  plotLines() {
+    //this.plotLine([new hexgrid.Hex(0, 0, 0), new hexgrid.Hex(4, 5, -9)]);
+    for (const line of this.cellsAndOps.hexLines) {
+      this.plotLine(line);
+    }
+  }
+
+  plotLine(hexPoints) {
+    if (hexPoints.length < 2) {
+      throw new Error("plotLine expects 2 hexPoints");
+    }
+    const xyPoints = hexPoints.map((hp) => this.xyPoint(hp));
+    const ctx = this.context;
+    ctx.beginPath();
+    ctx.moveTo(xyPoints[0].x, xyPoints[0].y);
+    ctx.lineTo(xyPoints[1].x, xyPoints[1].y);
+    ctx.closePath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#000";
+    ctx.stroke();
+  }
+
+  // click handler
+
+  attachClickHandler() {
+    const clickHandler = (event) => {
+      const xyTouched = this.xyPointFor(event);
+      console.log(`xyTouched: ${xyTouched.fmtString()}`); // pixels
+      const hexTouched = this.layout.pixelToHex(xyTouched); // Hex units
+      const hexTouchedRounded = hexTouched.round(); // Hex units, whole
+      console.log(`hexTouched= ${hexTouched.fmtString()}`);
+      console.log(`hexTouchedRounded= ${hexTouchedRounded.fmtString()}`);
+
+      console.log(`hexTouchedRounded= ${hexTouchedRounded.fmtString()}`);
+
+      // SEND ONLY PURE Hex points to cellsAndOps
+      this.cellsAndOps.processHexPoint(hexTouchedRounded);
+      this.touched = [hexTouched];
+
+      const justSelected = [
+        { ...this.xyPoint(hexTouched), ...{ fillStyle: "#00000011" } }
+      ];
+
+      //this.otherArray.push(...justSelected);
+      this.justTouchedArray = justSelected;
+      console.log("this.justTouchedArray=", this.justTouchedArray);
+
+      // get distances and find the nearest in hexPoints
+      const distances = this.board.hexPoints.map((elt) =>
+        hexTouched.distance(elt)
+      );
+      //console.log("distances=", distances)
+      //const hitIndex = this.indexOfSmallest(distances);
+      const hitIndex = indexOfSmallest(distances);
+      const inHex = this.board.hexPoints[hitIndex];
+      console.log(`hitIndex: ${hitIndex} inHex: ${inHex.fmtString()}`);
+
+      this.render();
+
+      //hitdump = { hit: { x: x, y: y }, hexHit: hexHit, hitIndex: hitIndex };
+    };
+    this.canvas.addEventListener("click", clickHandler, false);
+  }
+
+  render() {
+    console.log("render()");
+    this.renderHexagonsEtc(this.combinedArrays());
+    return this.canvas;
+  }
+}
+
+md`
+##### define \`class CellsAndOps\`
+`;
+
+// define a `class CellsAndOps` to store the Hex cells created/destroyed by the mouse clicks and display effects of operations on these cells.
+// uses opsRadio_1 to select the operation
+// uses t_1 in scale(t) lerp(t)
+// uses vectorLinesRadio_1, previousDropKeepRadio_1
+
+// TODO
+// detect op change and redo op on previous elements if possible
+class CellsAndOps {
+  constructor(options) {
+    this.center = new hexgrid.Hex(0, 0, 0);
+    this.clear();
+  }
+
+  clear() {
+    this.hexPoints = [];
+    this.hexLines = []; // [[hexPoint],[hexPoint],]
+    this.directionIdx = 0;
+    this.info = "";
+    this.opCompleted = false;
+  }
+
+  // process the incoming hexPoint
+  processHexPoint(hexPoint) {
+    console.log("-----processHexPoint", hexPoint);
+    if (_.isEqual(hexPoint, center)) {
+      // click on the center hexagon clears all
+      this.clear();
+    } else if (this.remove(hexPoint)) {
+      // successfully removed the previously added hexPoint
+      this.info = "";
+      return;
+    } else {
+      // use the hexPoint
+      //console.log("-----processHexPoint", typeof this.hexPoints);
+      //console.log("-----processHexPoint", this.hexPoints);
+      this.performOp(hexPoint);
+    }
+    console.log("-----processHexPoint", this.hexPoints.length, this.hexPoints);
+  }
+
+  remove(hexPoint) {
+    for (var i in this.hexPoints) {
+      if (_.isEqual(this.hexPoints[i], hexPoint)) {
+        this.hexPoints.splice(i, 1);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  indexOf(obj, array) {
+    for (var i in array) {
+      if (_.isEqual(array[i], obj)) {
+        return Number(i);
+      }
+    }
+    return -1;
+  }
+
+  addLinesTo(hexPoints) {
+    console.log("-----addLinesTo hexPoints", hexPoints);
+    this.hexLines.push(...hexPoints.map((hexPoint) => [center, hexPoint]));
+  }
+
+  performOp(hexPoint) {
+    var result;
+    var requiredInputPoints = 0;
+
+    switch (opsRadio_1) {
+      case "add":
+      case "subtract":
+      case "distance":
+      case "lerp(t)":
+      case "lerp(t)+round":
+      case "linedraw":
+        requiredInputPoints = 2;
+        break;
+      case "scale(t)":
+      case "rotateLeft":
+      case "rotateRight":
+      case "neighbor":
+      case "diagonalNeighbor":
+      case "len":
+        requiredInputPoints = 1;
+        break;
+      case "direction":
+        requiredInputPoints = 0;
+        break;
+    }
+
+    if (previousDropKeepRadio_1 == "drop" && this.opCompleted) {
+      this.hexPoints = [];
+    }
+    this.hexLines = [];
+    this.hexPoints.push(hexPoint);
+    if (this.hexPoints.length < requiredInputPoints) {
+      this.opCompleted = false;
+      // this.hexLines = [];
+      return;
+    }
+
+    const len = this.hexPoints.length;
+    switch (opsRadio_1) {
+      case "add":
+        result = this.hexPoints[len - 2].add(this.hexPoints[len - 1]);
+        break;
+      case "subtract":
+        result = this.hexPoints[len - 2].subtract(this.hexPoints[len - 1]);
+        break;
+      case "scale(t)":
+        result = this.hexPoints[len - 1].scale(t_1);
+        break;
+      case "rotateLeft":
+        result = this.hexPoints[len - 1].rotateLeft();
+        break;
+      case "rotateRight":
+        result = this.hexPoints[len - 1].rotateRight();
+        break;
+      case "direction":
+        //        this.hexPoints.pop();
+        //        result = hexgrid.Hex.direction(this.directionIdx);
+        //        this.info = `direction ${this.directionIdx}`;
+        //        break;
+        let here = this.hexPoints.pop();
+        let length = here.len();
+        result = here.scale(1 / length).round();
+        let index = this.indexOf(result, hexgrid.Hex.directions);
+        this.info = `direction ${index}`;
+        console.log("--- performOp here", here, length);
+        console.log("--- performOp result", result);
+        console.log("--- performOp Hex.directions", hexgrid.Hex.directions);
+        break;
+      case "neighbor":
+        result = this.hexPoints[len - 1].neighbor(this.directionIdx);
+        this.info = `neighbor, direction: ${this.directionIdx}`;
+        break;
+      case "diagonalNeighbor":
+        result = this.hexPoints[len - 1].diagonalNeighbor(this.directionIdx);
+        this.info = `diagonalNeighbor, direction: ${this.directionIdx}`;
+        break;
+      case "len":
+        const leng = this.hexPoints[len - 1].len();
+        this.info = `len= ${leng}`;
+        break;
+      case "distance":
+        const dist = this.hexPoints[len - 1].distance(this.hexPoints[len - 2]);
+        this.info = `distance= ${dist}`;
+        break;
+      case "lerp(t)":
+        result = this.hexPoints[len - 2].lerp(this.hexPoints[len - 1], t_1);
+        break;
+      case "lerp(t)+round":
+        result = this.hexPoints[len - 2]
+          .lerp(this.hexPoints[len - 1], t_1)
+          .round();
+        break;
+      case "linedraw":
+        result = this.hexPoints[len - 2].linedraw(this.hexPoints[len - 1]);
+        break;
+    }
+
+    if (vectorLinesRadio_1 == "show") {
+      this.addLinesTo(this.hexPoints.slice(-requiredInputPoints));
+      switch (opsRadio_1) {
+        case "linedraw":
+          break;
+        default:
+          this.addLinesTo([result]);
+          break;
+      }
+    }
+    if (Array.isArray(result)) {
+      this.hexPoints.unshift(...result);
+    } else if (result) {
+      this.hexPoints.unshift(result);
+    }
+    this.directionIdx = (this.directionIdx + 1) % 6; // even if not used by the op
+    this.opCompleted = true;
+    console.log("--- performOp this.hexPoints", this.hexPoints);
+    console.log("--- performOp this.hexLines", this.hexLines);
+  }
+}
+
+hr()
+
+md`
+### Experiments
+`;
+
+md`
+#### Encapsulate access to dom canvas?
+#### Inherit from it or compose with it to encapsulate plotting of shapes, e.g. hexagon; hexagonGrid
+`;
+
+class Canvas {
+  constructor(options) {
+    this.width = options.width ?? 700;
+    this.height = options.height ?? 400;
+    this.context = DOM.context2d(this.width, this.height);
+    this.canvas = this.context.canvas;
+  }
+}
+
+md`
+##### index of a hex direction unit vector
+`;
+
+hexgrid.Hex.directions
+
+// does not work
+hexgrid.Hex.directions.indexOf(new hexgrid.Hex(1, 0, -1))
+
+new hexgrid.Hex(-1, 0, 1) == new hexgrid.Hex(-1, 0, 1)
+
+// works
+_.isEqual(new hexgrid.Hex(-1, 0, 1), new hexgrid.Hex(-1, 0, 1))
+
+//_.indexOf(array, value, fromIndex) does not work
+_.indexOf(hexgrid.Hex.directions, new hexgrid.Hex(1, 0, -1), 0)
+
+// works
+function findIndex(array, obj) {
+  for (var i in array) {
+    if (_.isEqual(array[i], obj)) {
+      return Number(i);
+    }
+  }
+  return -1;
+}
+
+// works
+findIndex(hexgrid.Hex.directions, new hexgrid.Hex(-0, 1, -1))
+
+md`
+--
+`;
+
+md`
+## Previous versions
+`;
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+---
+### Let's draw a spiral
+`;
+
+viewof numberOfItems = html`<input type=range min=0 max=300 step=1 style='width: 100%'>`
+// const version = '0.2.3'
+
+md`
+| radius _r_      | items _n_     |     
+| -------------- | -------------- |
+| **${spiral_r_of_n(numberOfItems)}** | **${numberOfItems}** |
+`
+
+viewof hexagons = {
+  // adapted from
+  // https://observablehq.com/@d3/hello-d3-drag?collection=@d3/d3-drag
+  const width = 700;
+  const height = 400;
+  const context = DOM.context2d(width, height);
+  const canvas = context.canvas;
+
+  const hexagonSide = 20;
+  const xyCenter = new hexgrid.Point(width / 2, height / 2);
+  const xySize = new hexgrid.Point(hexagonSide, hexagonSide);
+  const radius = (hexagonSide * Math.sqrt(3)) / 2;
+  const flatLayout = new hexgrid.Layout(
+    hexgrid.Layout.flat,
+    xySize, // hexagon size, pixels
+    xyCenter // layout center, pixels
+  );
+  const xy00Center = flatLayout.pixelToHex({ x: 0, y: 0 });
+
+  function xyPoint(hexPoint, color) {
+    // uses flatLayout
+    let xyPoint = flatLayout.hexToPixel(hexPoint);
+    return { x: xyPoint.x, y: xyPoint.y, color: color };
+  }
+
+  function xyPoints(layout, hexPoints, color) {
+    return hexPoints.map((hexPoint, i) =>
+      xyPoint(hexPoint, d3.schemeCategory10[i % 10])
+    );
+  }
+
+  const hexPoints = hexSpiral(hexCenter, 4);
+  const xyCircleCenters = xyPoints(flatLayout, hexPoints);
+  const xyHexagonCenters = [xyPoint(hexCenter, "#f00")];
+  const spiral_radius = spiral_r_of_n(numberOfItems);
+  const hexPoints2 = hexSpiral(hexCenter, spiral_radius);
+  const xyHexagonCenters2 = xyPoints(flatLayout, hexPoints2).slice(
+    0,
+    numberOfItems
+  );
+
+  function renderHexagons() {
+    console.log("renderHexagons");
+    context.clearRect(0, 0, width, height);
+    const xy00PolygonCorners = flatLayout.polygonCorners(xy00Center);
+    // loop over hexagon centers
+    for (const { x, y, color, active } of xyHexagonCenters2) {
+      // plot a hexagon
+      context.beginPath();
+      // loop over hexagon corners
+      for (const corner of xy00PolygonCorners) {
+        context.lineTo(x + corner.x, y + corner.y);
+      }
+      context.closePath();
+      //context.fillStyle = color;
+      //context.fill();
+      context.lineWidth = 1;
+      context.strokeStyle = "#f00";
+      context.stroke();
+    }
+  }
+
+  // Render the initial canvas.
+  renderHexagons();
+
+  return canvas;
+}
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+---
+`;
+
+md`
+---
+`;
+
+md`
+test
+`;
+
+{
+  const a = new hexgrid.Hex(1, 2, -3);
+  const b = new hexgrid.Hex(4, 2, -6);
+  const c = a.add(b);
+
+  const d = { ...a, ...{ name: "a" } };
+  const e = c.add(d);
+  console.log(e);
+
+  console.log(c instanceof hexgrid.Hex);
+  console.log(d instanceof hexgrid.Hex);
+}
+
+md`
+test class inheritance
+`;
+
+class Base {
+  constructor() {
+    this.b1 = 1;
+    this.b2 = 2;
+  }
+}
+
+
+class Derived extends Base {
+  constructor() {
+    super();
+    this.d1 = 11;
+    this.d2 = 12;
+    this.b1 = 111;
+  }
+}
+
+{
+  console.table(new Base());
+  console.table(new Derived());
+}
+
+md`
+# WIP
+Let us define a \`class CellsAndOps\` to store the Hex cells created/destroyed by the mouse clicks and display effects of operations on these cells.
+
+`;
+
+md`
+---
+`;
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+
+md`
+---
+### Look at the \`Hex\` class and some of its methods
+
+An instance of \`Hex\` represents a mathematical point whose position is defined by 3 coordinates \`(q,r,s)\` with respect to 3 axes in a plane, which are 120° apart.
+
+\`Hex\` operations ensure that \`q + r + s = 0\` holds at all times for any point.
+
+Here is an array of \`Hex\`points:
+
+`;
+
+hs3 = hexSpiral(hex0, 3)
+
+hex0 = new hexgrid.Hex(0, 0, 0)
+
+hex1 = new hexgrid.Hex(-1, 1, 0)
+
+hex9 = new hexgrid.Hex(0, 2, -2)
+
+md`
+Method \`len()\` returns the length of the vector from the origin \`(0,0,0)\` to the \`Hex\` instance. This length is same as the \`radius\` in \`spiralHex\` examples.
+`;
+
+len0 = hs3[0].len()
+
+len9 = hs3[9].len()
+
+len36 = hs3[36].len()
+
+md`
+We can add or subtract \`Hex\` points.
+`;
+
+hex1_plus_hex9 = hex1.add(hex9)
+
+hex1_minus_hex9 = hex1.subtract(hex9)
+
+md`
+Method \`scale(k)\` multiplies all 3 coordinates by \`k\`.
+`;
+
+hex1_times_2 = hex1.scale(2)
+
+md`
+Method \`distance(other)\` returns the distance between \`Hex\` points.
+`;
+
+dist_28_34 = hs3[28].distance(hs3[34])
+
+md`
+Method \`round()\` returns the whole number coordinates of the nearest on-grid point:
+`;
+
+hexSomeHit = new hexgrid.Hex(2.7, 0.249, -2.949)
+
+hexSomeHitRounded = hexSomeHit.round()
+
+hexSomeHit_len = hexSomeHit.len()
+
+hexSomeHitRounded_len = hexSomeHitRounded.len()
+
+md`
+[Discuss remaining \`Hex\`] methods: \`rotate*, direction, neighbor, diagonalNeighbor, lerp, linedraw\`]
+`;
+
+hexdirs = hexgrid.Hex.direction(0)
+
+dist_1_0 = hex1.distance(hex0)
+
+md`
+Distances to hex0 (center) are the radii:
+`;
+
+hs3Distances = hs3.map((elt) => {
+  return hex0.distance(elt);
+})
+
+md`
+---
+TODO add an extended BoardView with
+- on click select/deselect hexagons
+- a [radio button group](https://observablehq.com/@jashkenas/inputs#buttonDemo) selecting Hex operations
+- a go button - on click run operation on the 1 or 2 last selected
+`;
+
+md`
+---
+`;
+
+viewof ras = radio(["add", "subtract"])
+
+viewof go = button("go")
+
+md`
+---
+`;
+
+md`
+#### more dependencies
+`;
+
+md`
+This is the first part of the [redblobgames/grid](http://www.redblobgames.com/grids/hexagons/) file.
+`;
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+### rudifa.extensions
+`;
+
+/**
+ * stringifies an object, formatting numeric values as %.3f
+ */
+fmtString = (Object.prototype.fmtString = function () {
+  let fixfmt = (value) =>
+    typeof value === "number" ? value.toFixed(3) : value;
+  return Object.keys(this)
+    .map((key) => `${key}: ${fixfmt(this[key])}`)
+    .join(", ");
+})
+
+/**
+ * returns array [0,...,r]
+ */
+function range_inclusive(r) {
+  return [...Array(r + 1).keys()];
+}
+
+function cl_pretty(obj, title = "") {
+  return `⭕ ${title} ${JSON.stringify(obj, null, 2)}`;
+}
+
+//indexOfSmallest = (Object.prototype.indexOfSmallest = function () {
+//  return this.indexOf(Math.min(...this));
+//})
+
+function indexOfSmallest(array) {
+  return array.indexOf(Math.min(...array));
+}
+
+md`
+__demos__
+`;
+
+hexc = ({ r: 0.33333, q: 0.66666, s: -0.99999, color: "#ff0000" })
+
+hexcfmtd = hexc.fmtString()
+
+rng7 = range_inclusive(7)
+
+pty1 = cl_pretty(hexc)
+
+indexOfSmallest([])
+
+indexOfSmallest([9, 4, 8, 1, 3, 7, 2])
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+__Observable Notebook: observations__:
+
+Looks like \`viewof anyname = { ...; return canvas; }\` has the same effect (renders the canvas) as \`anyname = { ...; return canvas; }\`
+`;
+
+md`
+__Cell shortcuts__: I have no succes with these (select above/below, expand selection up/down, move delection up/down)
+`;
+
+md`
+---
+`;
+
+md`
+__Programming questions:__
+- can we convert the innards of the \`viewof boardModel\` to a class? Yes.
+- can we separate the model from the view? Yes.
+
+`;
+
+md`
+
+Usage of \`hexgrid\` __classes__:
+- hexSpiral: Hex
+- Board: Hex
+- BoardView: Layout for conversions to and from pixels
+
+`;
+
+md`
+__Looking ahead: how to serialize and deserialize an instance of Board?__
+`;
+
+md`
+Serialize with \`JSON.stringify()\`:
+
+`;
+
+board_1_json = JSON.stringify(board_1)
+
+md`
+Deserialize with \`JSON.parse()\` into a plain \`Object\`:
+`;
+
+board_1_parsed = JSON.parse(board_1_json)
+
+md`
+How to initialize a Board instance from this Object?
+`;
+
+md`
+[JSON.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) and  a  static factory method? __TBD__
+`;
+
+html`</p><hr style="width:100%; border:1px solid black; padding: 0"/>`
+
+md`
+---
+## Configuration
+`;
+
+center = new hexgrid.Hex(0,0,0)
+
+hexCenter = new hexgrid.Hex(0,0,0)
+
+md`
+## Reference articles
+
+* [Red Blob Games › Hexagonal Grids › Coordinate systems](https://www.redblobgames.com/grids/hexagons/#coordinates-cube) by Amit Patel
+* [Red Blob Games › Hexagonal Grids › Rings algorithms](https://www.redblobgames.com/grids/hexagons/#rings) _idem_
+* [Red Blob Games › Implementation of Hex Grids › Source Code](https://www.redblobgames.com/grids/hexagons/implementation.html#codegen) _idem_
+`;
+
+md`
+## Dependencies
+
+We're using our [@gongfuio/hexgrid](https://www.npmjs.com/package/@gongfuio/hexgrid) library, which republishes on NPMJS, as an ES6 module, the Javascript [Implementation of Hex Grids](https://www.redblobgames.com/grids/hexagons/implementation.html) from [Amit Patel (Red Blob Games)](https://www.redblobgames.com/grids/hexagons/).
+`;
+
+hexgrid = import('https://unpkg.com/@gongfuio/hexgrid@1.0.0/dist/index.js?module')
+
+import { hr } from "@rudifa/js-onb-utils"
+
+import { button, radio } from "@jashkenas/inputs"
+
+md`
+## Logo
+Cloned by [rudifa](https://observablehq.com/@rudifa) from the [notebook](https://observablehq.com/@olange/hexgrid-game-board) by [olange](https://observablehq.com/@olange).
+
+Work in progress.
+
+`;
