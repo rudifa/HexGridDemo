@@ -21,6 +21,8 @@
 		9DEA43C62751608400D6594D /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9DEA43C52751608400D6594D /* HexGrid */; };
 		9DEA43CB275167A000D6594D /* HexBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CA275167A000D6594D /* HexBoardView.swift */; };
 		9DEA43CC275168EB00D6594D /* HexBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CA275167A000D6594D /* HexBoardView.swift */; };
+		9DEA43CE2751802600D6594D /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
+		9DEA43CF2751802600D6594D /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,7 @@
 		9DEA43C127515ECA00D6594D /* HexGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HexGrid; path = ../HexGrid; sourceTree = "<group>"; };
 		9DEA43C8275166FC00D6594D /* hexagonal-grids.ojs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "hexagonal-grids.ojs"; sourceTree = "<group>"; };
 		9DEA43CA275167A000D6594D /* HexBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardView.swift; sourceTree = "<group>"; };
+		9DEA43CD2751802600D6594D /* HexBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,7 @@
 				9DB3F089275111DB00B9AD5B /* ContentView.swift */,
 				9DEA43CA275167A000D6594D /* HexBoardView.swift */,
 				9DB3F08A275111DD00B9AD5B /* Assets.xcassets */,
+				9DEA43CD2751802600D6594D /* HexBoardModel.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -341,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEA43CE2751802600D6594D /* HexBoardModel.swift in Sources */,
 				9DEA43CB275167A000D6594D /* HexBoardView.swift in Sources */,
 				9DB3F0B2275111DD00B9AD5B /* ContentView.swift in Sources */,
 				9DB3F0B0275111DD00B9AD5B /* HexGridDemoApp.swift in Sources */,
@@ -351,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEA43CF2751802600D6594D /* HexBoardModel.swift in Sources */,
 				9DEA43CC275168EB00D6594D /* HexBoardView.swift in Sources */,
 				9DB3F0B3275111DD00B9AD5B /* ContentView.swift in Sources */,
 				9DB3F0B1275111DD00B9AD5B /* HexGridDemoApp.swift in Sources */,
