@@ -113,14 +113,21 @@ struct HexBoardView: View {
     var body: some View {
         VStack {
             Text("Hello, Hex World!")
-            Polygon(corners: centerHexCorners).stroke(.red)
+            //Polygon(corners: centerHexCorners).stroke(.red)
 //            Polygon2(layout: layout, hex: Hex(q: 2, r: 2, s: -4)).stroke(.blue)
-            Polygon2(layout: layout, hex: Hex(q: 0, r: 0, s: 0)).stroke(.blue)
-            HexagonBoardView(hexes2: [
-                Hex2(hex: Hex(q: 0, r: 0, s: 0)),
-                Hex2(hex: Hex(q: 0, r: 1, s: -1)),
-                Hex2(hex: Hex(q: 0, r: -1, s: 1)),
-                                     ])
+
+//            Polygon2(layout: layout, hex: Hex(q: 0, r: 0, s: 0)).stroke(.blue)
+
+//            HexagonBoardView(hexes2: [
+//                Hex2(hex: Hex(q: 0, r: 0, s: 0)),
+//                Hex2(hex: Hex(q: 0, r: 1, s: -1)),
+//                Hex2(hex: Hex(q: 0, r: -1, s: 1)),
+//                                     ])
+
+            HexagonBoardView(hexes2: hexRing(center: Hex(q: 0, r: 0, s: 0), radius: 1)
+                                .map {Hex2(hex: $0)})
+            HexagonBoardView(hexes2: hexRing(center: Hex(q: 0, r: 0, s: 0), radius: 2)
+                                .map {Hex2(hex: $0)})
         }
     }
 }
