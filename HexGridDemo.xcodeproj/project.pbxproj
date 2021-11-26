@@ -17,6 +17,8 @@
 		9DB3F0B3275111DD00B9AD5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F089275111DB00B9AD5B /* ContentView.swift */; };
 		9DB3F0B4275111DD00B9AD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB3F08A275111DD00B9AD5B /* Assets.xcassets */; };
 		9DB3F0B5275111DD00B9AD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB3F08A275111DD00B9AD5B /* Assets.xcassets */; };
+		9DEA43C42751602B00D6594D /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9DEA43C32751602B00D6594D /* HexGrid */; };
+		9DEA43C62751608400D6594D /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9DEA43C52751608400D6594D /* HexGrid */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,7 @@
 		9DB3F0A8275111DD00B9AD5B /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB3F0AC275111DD00B9AD5B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		9DB3F0AE275111DD00B9AD5B /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		9DEA43C127515ECA00D6594D /* HexGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HexGrid; path = ../HexGrid; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEA43C62751608400D6594D /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DEA43C42751602B00D6594D /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,11 +91,13 @@
 		9DB3F082275111DB00B9AD5B = {
 			isa = PBXGroup;
 			children = (
+				9DEA43C027515ECA00D6594D /* Packages */,
 				9DB3F087275111DB00B9AD5B /* Shared */,
 				9DB3F096275111DD00B9AD5B /* macOS */,
 				9DB3F09F275111DD00B9AD5B /* Tests iOS */,
 				9DB3F0AB275111DD00B9AD5B /* Tests macOS */,
 				9DB3F090275111DD00B9AD5B /* Products */,
+				9DEA43C22751602B00D6594D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +148,21 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		9DEA43C027515ECA00D6594D /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				9DEA43C127515ECA00D6594D /* HexGrid */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		9DEA43C22751602B00D6594D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -157,6 +179,9 @@
 			dependencies = (
 			);
 			name = "HexGridDemo (iOS)";
+			packageProductDependencies = (
+				9DEA43C52751608400D6594D /* HexGrid */,
+			);
 			productName = "HexGridDemo (iOS)";
 			productReference = 9DB3F08F275111DD00B9AD5B /* HexGridDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +199,9 @@
 			dependencies = (
 			);
 			name = "HexGridDemo (macOS)";
+			packageProductDependencies = (
+				9DEA43C32751602B00D6594D /* HexGrid */,
+			);
 			productName = "HexGridDemo (macOS)";
 			productReference = 9DB3F095275111DD00B9AD5B /* HexGridDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -725,6 +753,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9DEA43C32751602B00D6594D /* HexGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HexGrid;
+		};
+		9DEA43C52751608400D6594D /* HexGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HexGrid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9DB3F083275111DB00B9AD5B /* Project object */;
 }
