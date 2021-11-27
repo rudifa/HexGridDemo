@@ -59,6 +59,7 @@
 		9DEA43C8275166FC00D6594D /* hexagonal-grids.ojs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "hexagonal-grids.ojs"; sourceTree = "<group>"; };
 		9DEA43CA275167A000D6594D /* HexBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardView.swift; sourceTree = "<group>"; };
 		9DEA43CD2751802600D6594D /* HexBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardModel.swift; sourceTree = "<group>"; };
+		9DEA43D027526C5400D6594D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +99,7 @@
 		9DB3F082275111DB00B9AD5B = {
 			isa = PBXGroup;
 			children = (
+				9DEA43D027526C5400D6594D /* README.md */,
 				9DEA43C027515ECA00D6594D /* Packages */,
 				9DB3F087275111DB00B9AD5B /* Shared */,
 				9DB3F096275111DD00B9AD5B /* macOS */,
