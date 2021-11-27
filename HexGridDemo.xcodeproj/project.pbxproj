@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D52F5FE2752C629008258CF /* HexBoardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */; };
+		9D52F5FF2752C643008258CF /* HexBoardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */; };
+		9D52F6002752C64F008258CF /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
+		9D52F6012752C650008258CF /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
+		9D52F6032752C7D8008258CF /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9D52F6022752C7D8008258CF /* HexGrid */; };
+		9D52F6052752C7DF008258CF /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9D52F6042752C7DF008258CF /* HexGrid */; };
 		9DB3F0A1275111DD00B9AD5B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F0A0275111DD00B9AD5B /* Tests_iOS.swift */; };
 		9DB3F0A3275111DD00B9AD5B /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F0A2275111DD00B9AD5B /* Tests_iOSLaunchTests.swift */; };
 		9DB3F0AD275111DD00B9AD5B /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F0AC275111DD00B9AD5B /* Tests_macOS.swift */; };
@@ -43,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardModelTests.swift; sourceTree = "<group>"; };
 		9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexGridDemoApp.swift; sourceTree = "<group>"; };
 		9DB3F089275111DB00B9AD5B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9DB3F08A275111DD00B9AD5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D52F6032752C7D8008258CF /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,12 +98,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D52F6052752C7DF008258CF /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D52F5FC2752C5E4008258CF /* SharedTests */ = {
+			isa = PBXGroup;
+			children = (
+				9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */,
+			);
+			path = SharedTests;
+			sourceTree = "<group>";
+		};
 		9DB3F082275111DB00B9AD5B = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +120,7 @@
 				9DEA43C027515ECA00D6594D /* Packages */,
 				9DB3F087275111DB00B9AD5B /* Shared */,
 				9DB3F096275111DD00B9AD5B /* macOS */,
+				9D52F5FC2752C5E4008258CF /* SharedTests */,
 				9DB3F09F275111DD00B9AD5B /* Tests iOS */,
 				9DB3F0AB275111DD00B9AD5B /* Tests macOS */,
 				9DEA43C72751668700D6594D /* Docs */,
@@ -240,6 +258,9 @@
 				9DB3F09E275111DD00B9AD5B /* PBXTargetDependency */,
 			);
 			name = "Tests iOS";
+			packageProductDependencies = (
+				9D52F6022752C7D8008258CF /* HexGrid */,
+			);
 			productName = "Tests iOS";
 			productReference = 9DB3F09C275111DD00B9AD5B /* Tests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -258,6 +279,9 @@
 				9DB3F0AA275111DD00B9AD5B /* PBXTargetDependency */,
 			);
 			name = "Tests macOS";
+			packageProductDependencies = (
+				9D52F6042752C7DF008258CF /* HexGrid */,
+			);
 			productName = "Tests macOS";
 			productReference = 9DB3F0A8275111DD00B9AD5B /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -369,7 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D52F6002752C64F008258CF /* HexBoardModel.swift in Sources */,
 				9DB3F0A3275111DD00B9AD5B /* Tests_iOSLaunchTests.swift in Sources */,
+				9D52F5FE2752C629008258CF /* HexBoardModelTests.swift in Sources */,
 				9DB3F0A1275111DD00B9AD5B /* Tests_iOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,7 +404,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D52F6012752C650008258CF /* HexBoardModel.swift in Sources */,
 				9DB3F0AF275111DD00B9AD5B /* Tests_macOSLaunchTests.swift in Sources */,
+				9D52F5FF2752C643008258CF /* HexBoardModelTests.swift in Sources */,
 				9DB3F0AD275111DD00B9AD5B /* Tests_macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -779,6 +807,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9D52F6022752C7D8008258CF /* HexGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HexGrid;
+		};
+		9D52F6042752C7DF008258CF /* HexGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HexGrid;
+		};
 		9DEA43C32751602B00D6594D /* HexGrid */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HexGrid;

@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
     var body: some View {
-//        Text("Hello, world!")
-//            .padding()
-        HexBoardView()
+        NavigationView {
+            List {
+                NavigationLink(destination: { HexRingsBoardsView() }, label: { Text("Hex Rings Boards View") })
+
+                NavigationLink(destination: { HexSpiralBoardsView() }, label: { Text("Hex Spiral Boards View") })
+            }
+            .navigationTitle(Text("Demos"))
+            .padding()
+        }
     }
 }
 

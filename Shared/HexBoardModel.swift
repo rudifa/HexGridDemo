@@ -8,26 +8,14 @@
 import HexGrid
 import SwiftUI
 
-// function hexRing(center, radius) {
-//  let results = [];
-//  if( radius === 0) {
-//    results.push( center);
-//  } else {
-//    const dir4 = hexgrid.Hex.direction(4); // South-West
-//    let hex = center.add( dir4.scale( radius));
-//    for( let i = 0; i < 6; i++) {
-//      for( let j = 0; j < radius; j++) {
-//        results.push( hex);
-//        hex = hex.neighbor( i);
-//      }
-//    }
-//  }
-//  return results;
-// }
-
-func hexRing(center: Hex, radius: Int) -> [Hex] {
+/// Ring of Hex
+/// - Parameters:
+///   - center: center Hex
+///   - radius:
+/// - Returns: [Hex], all at a distance 'radius` from the center
+func hexRing(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
     if radius <= 0 {
-        return [Hex(q: 0, r: 0, s: 0)]
+        return [center]
     } else {
         var hexes = [Hex]()
         let dir4 = Hex.direction(direction: 4)
@@ -40,6 +28,35 @@ func hexRing(center: Hex, radius: Int) -> [Hex] {
         }
         return hexes
     }
+}
+
+/// Spiral of Hex
+/// - Parameters:
+///   - center: center Hex
+///   - radius:
+/// - Returns: [Hex] at a distance 0...radius from the center
+func hexSpiral(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
+    var hexes = [Hex]()
+    for r in 0 ... radius {
+        hexes += hexRing(center: center, radius: r)
+    }
+    return hexes
+}
+
+/// Number of Hex cells in a spiral of radius
+/// - Parameter radius:
+/// - Returns: number of cells
+func spiralN(for radius: Int) -> Int {
+    1 + radius * (radius + 1) * 3
+}
+
+func spiralR(for n: Int) -> Int {
+    for radius in 0 ... Int.max {
+        if spiralN(for: radius) >= n {
+            return radius
+        }
+    }
+    return 0
 }
 
 struct HexBoardModel: View {
