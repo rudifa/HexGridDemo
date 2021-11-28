@@ -23,10 +23,12 @@
 		9DB3F0B3275111DD00B9AD5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F089275111DB00B9AD5B /* ContentView.swift */; };
 		9DB3F0B4275111DD00B9AD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB3F08A275111DD00B9AD5B /* Assets.xcassets */; };
 		9DB3F0B5275111DD00B9AD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DB3F08A275111DD00B9AD5B /* Assets.xcassets */; };
+		9DDE1C732753CF9000DEB34C /* rfSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9DDE1C722753CF9000DEB34C /* rfSwiftUI */; };
+		9DDE1C752753D03100DEB34C /* HexBoardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1C742753D03100DEB34C /* HexBoardsView.swift */; };
+		9DDE1C762753D07E00DEB34C /* HexBoardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1C742753D03100DEB34C /* HexBoardsView.swift */; };
+		9DDE1C782753D22D00DEB34C /* HexBoards2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */; };
 		9DEA43C42751602B00D6594D /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9DEA43C32751602B00D6594D /* HexGrid */; };
 		9DEA43C62751608400D6594D /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 9DEA43C52751608400D6594D /* HexGrid */; };
-		9DEA43CB275167A000D6594D /* HexBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CA275167A000D6594D /* HexBoardView.swift */; };
-		9DEA43CC275168EB00D6594D /* HexBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CA275167A000D6594D /* HexBoardView.swift */; };
 		9DEA43CE2751802600D6594D /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
 		9DEA43CF2751802600D6594D /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
 /* End PBXBuildFile section */
@@ -62,9 +64,10 @@
 		9DB3F0A8275111DD00B9AD5B /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB3F0AC275111DD00B9AD5B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		9DB3F0AE275111DD00B9AD5B /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		9DDE1C742753D03100DEB34C /* HexBoardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexBoardsView.swift; sourceTree = "<group>"; };
+		9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoards2View.swift; sourceTree = "<group>"; };
 		9DEA43C127515ECA00D6594D /* HexGrid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HexGrid; path = ../HexGrid; sourceTree = "<group>"; };
 		9DEA43C8275166FC00D6594D /* hexagonal-grids.ojs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "hexagonal-grids.ojs"; sourceTree = "<group>"; };
-		9DEA43CA275167A000D6594D /* HexBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardView.swift; sourceTree = "<group>"; };
 		9DEA43CD2751802600D6594D /* HexBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardModel.swift; sourceTree = "<group>"; };
 		9DEA43D027526C5400D6594D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DDE1C732753CF9000DEB34C /* rfSwiftUI in Frameworks */,
 				9DEA43C62751608400D6594D /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,9 +136,10 @@
 		9DB3F087275111DB00B9AD5B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */,
 				9DB3F089275111DB00B9AD5B /* ContentView.swift */,
-				9DEA43CA275167A000D6594D /* HexBoardView.swift */,
+				9DDE1C742753D03100DEB34C /* HexBoardsView.swift */,
+				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
+				9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */,
 				9DB3F08A275111DD00B9AD5B /* Assets.xcassets */,
 				9DEA43CD2751802600D6594D /* HexBoardModel.swift */,
 			);
@@ -219,6 +224,7 @@
 			name = "HexGridDemo (iOS)";
 			packageProductDependencies = (
 				9DEA43C52751608400D6594D /* HexGrid */,
+				9DDE1C722753CF9000DEB34C /* rfSwiftUI */,
 			);
 			productName = "HexGridDemo (iOS)";
 			productReference = 9DB3F08F275111DD00B9AD5B /* HexGridDemo.app */;
@@ -321,6 +327,9 @@
 				Base,
 			);
 			mainGroup = 9DB3F082275111DB00B9AD5B;
+			packageReferences = (
+				9DDE1C712753CF9000DEB34C /* XCRemoteSwiftPackageReference "rfSwiftUI" */,
+			);
 			productRefGroup = 9DB3F090275111DD00B9AD5B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -371,8 +380,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DDE1C752753D03100DEB34C /* HexBoardsView.swift in Sources */,
+				9DDE1C782753D22D00DEB34C /* HexBoards2View.swift in Sources */,
 				9DEA43CE2751802600D6594D /* HexBoardModel.swift in Sources */,
-				9DEA43CB275167A000D6594D /* HexBoardView.swift in Sources */,
 				9DB3F0B2275111DD00B9AD5B /* ContentView.swift in Sources */,
 				9DB3F0B0275111DD00B9AD5B /* HexGridDemoApp.swift in Sources */,
 			);
@@ -383,7 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DEA43CF2751802600D6594D /* HexBoardModel.swift in Sources */,
-				9DEA43CC275168EB00D6594D /* HexBoardView.swift in Sources */,
+				9DDE1C762753D07E00DEB34C /* HexBoardsView.swift in Sources */,
 				9DB3F0B3275111DD00B9AD5B /* ContentView.swift in Sources */,
 				9DB3F0B1275111DD00B9AD5B /* HexGridDemoApp.swift in Sources */,
 			);
@@ -806,6 +816,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		9DDE1C712753CF9000DEB34C /* XCRemoteSwiftPackageReference "rfSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rudifa/rfSwiftUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		9D52F6022752C7D8008258CF /* HexGrid */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -814,6 +835,11 @@
 		9D52F6042752C7DF008258CF /* HexGrid */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HexGrid;
+		};
+		9DDE1C722753CF9000DEB34C /* rfSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DDE1C712753CF9000DEB34C /* XCRemoteSwiftPackageReference "rfSwiftUI" */;
+			productName = rfSwiftUI;
 		};
 		9DEA43C32751602B00D6594D /* HexGrid */ = {
 			isa = XCSwiftPackageProductDependency;

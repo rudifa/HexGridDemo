@@ -15,6 +15,16 @@ extension Point {
     }
 }
 
+struct Point2: Identifiable {
+    let id = UUID()
+    let x: CGFloat
+    let y: CGFloat
+    init(point: Point) {
+        x = point.x
+        y = point.y
+    }
+}
+
 struct Hex2: Identifiable {
     let id = UUID()
 

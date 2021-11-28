@@ -14,6 +14,8 @@ struct ContentView: View {
                 NavigationLink(destination: { HexRingsBoardsView() }, label: { Text("Hex Rings Boards View") })
 
                 NavigationLink(destination: { HexSpiralBoardsView() }, label: { Text("Hex Spiral Boards View") })
+
+                NavigationLink(destination: { HexRingBoardView() }, label: { Text("Hex Ring Board View") })
             }
             .navigationTitle(Text("Demos"))
             .padding()
