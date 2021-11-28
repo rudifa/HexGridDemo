@@ -25,6 +25,13 @@ struct Point2: Identifiable {
     }
 }
 
+struct Point3: Identifiable {
+    let id = UUID()
+    let point: Point
+    var x: CGFloat{ point.x}
+    var y: CGFloat{ point.x}
+ }
+
 struct Hex2: Identifiable {
     let id = UUID()
 

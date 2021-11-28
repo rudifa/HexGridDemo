@@ -18,11 +18,36 @@ struct HexagonView: View {
     }
 }
 
+struct CircleView: View {
+    var body: some View {
+        GeometryReader { _ in
+            Circle()
+                .stroke()
+            //               .frame(width: 200, height: 200)
+
+            // in the absence of frame center goes to bottomTrailing corner
+            // .offset(x: geometry.size.width/2, y: geometry.size.height/2)
+        }
+    }
+}
+
+struct HexagonView3: View {
+    let size: CGSize
+    let center: CGPoint
+    var body: some View {
+        Hexagon()
+            .stroke(.red)
+            .frame(width: size.width, height: size.height)
+            .position(x: center.x, y: center.y)
+    }
+}
+
 // TODO:
 // - simplify offset and frame size parameters for Hexagon
 // - revise rotation - had a crash
 
-struct HexRingBoardView: View {
+// OK but not understood offsets
+struct HexRingBoardView2: View {
     let radius = 1
     var hexes: [Hex] {
         hexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)
@@ -36,7 +61,7 @@ struct HexRingBoardView: View {
                                 size: Point(x: hexSize, y: hexSize),
                                 origin: Point(x: geometry.size.width / 2, y: geometry.size.height / 2))
             let points = hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
-            let _ = print("### hexes.count= \(hexes.count)")
+            // let _ = print("### hexes.count= \(hexes.count)")
             // let _ = print("size= \(size) layout= \(layout)")
             ZStack {
                 ForEach(points) { point in
@@ -44,6 +69,40 @@ struct HexRingBoardView: View {
                         .stroke()
                         .frame(width: hexSize * 2, height: hexSize * 2)
                         .offset(x: point.x - hexSize, y: point.y - hexSize)
+
+                    // Hexagons are sized and positioned as desired;
+                    // need to understand the correction -hexSize
+                    // more generally, relation between frame and offset
+                }
+            }
+        }
+    }
+}
+
+// LOOKS GOOD
+struct HexRingBoardView3: View {
+    let radius = 2
+    var hexes: [Hex] {
+        hexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            let size = min(geometry.size.width, geometry.size.height)
+            let hexSide = size / CGFloat(hexRingWidth(radius: radius))
+            let hexSize = CGSize(width: hexSide * 2, height: hexSide * 2)
+            let hexSize2 = CGSize(width: hexSide, height: hexSide)
+            let layout = Layout(orientation: Layout.flat,
+                                size: Point(x: hexSide, y: hexSide),
+                                origin: Point(x: geometry.size.width / 2, y: geometry.size.height / 2))
+            let points = hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
+            // let _ = print("### hexes.count= \(hexes.count)")
+            // let _ = print("size= \(size) layout= \(layout)")
+            ZStack {
+                ForEach(points) { point in
+                    HexagonView3(size: hexSize, center: CGPoint(x: point.x, y: point.y))
+                    HexagonView3(size: hexSize2, center: CGPoint(x: point.x, y: point.y))
+                    CircleView()
                 }
             }
         }
@@ -58,7 +117,7 @@ struct HexBoards2View: View {
 
 struct HexBoards2View_Previews: PreviewProvider {
     static var previews: some View {
-        HexRingBoardView()
-        HexagonView()
+        HexRingBoardView3()
+        // HexagonView()
     }
 }
