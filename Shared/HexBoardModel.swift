@@ -30,6 +30,13 @@ func hexRing(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
     }
 }
 
+/// Return the width of a ring of flat hexagons
+/// - Parameter radius:
+/// - Returns: width in hex size units (unit == hexagon side)
+func hexRingWidth(radius: Int) -> Int {
+    2 + 3 * max(radius, 0)
+}
+
 /// Spiral of Hex
 /// - Parameters:
 ///   - center: center Hex
@@ -37,7 +44,7 @@ func hexRing(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
 /// - Returns: [Hex] at a distance 0...radius from the center
 func hexSpiral(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
     var hexes = [Hex]()
-    for r in 0 ... radius {
+    for r in 0 ... max(radius, 0) {
         hexes += hexRing(center: center, radius: r)
     }
     return hexes
@@ -47,7 +54,8 @@ func hexSpiral(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) -> [Hex] {
 /// - Parameter radius:
 /// - Returns: number of cells
 func spiralN(for radius: Int) -> Int {
-    1 + radius * (radius + 1) * 3
+    let radius2 = max(radius, 0)
+    return 1 + radius2 * (radius2 + 1) * 3
 }
 
 func spiralR(for n: Int) -> Int {
