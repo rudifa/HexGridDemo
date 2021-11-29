@@ -112,9 +112,9 @@ struct HexRingsBoardsView: View {
 
 //            Polygon2(layout: layout, hex: Hex(q: 0, r: 0, s: 0)).stroke(.blue)
             ZStack {
-                HexRingsBoardView(hexes2: hexRing(center: Hex(q: 0, r: 0, s: 0), radius: 1)
+                HexRingsBoardView(hexes2: HexRing(radius: 1).hexes
                     .map { Hex2(hex: $0) })
-                HexRingsBoardView(hexes2: hexRing(center: Hex(q: 0, r: 0, s: 0), radius: 3)
+                HexRingsBoardView(hexes2: HexRing(radius: 3).hexes
                     .map { Hex2(hex: $0) })
             }
         }
@@ -126,7 +126,7 @@ struct HexSpiralBoardsView: View {
         VStack {
             Text("Hello, Hex World!")
             ZStack {
-                HexRingsBoardView(hexes2: hexSpiral(radius: 3)
+                HexRingsBoardView(hexes2: HexSpiral(radius: 3).hexes
                     .map { Hex2(hex: $0) })
             }
         }

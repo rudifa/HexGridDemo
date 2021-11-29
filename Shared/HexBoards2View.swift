@@ -49,18 +49,16 @@ struct HexagonView3: View {
 // OK but not understood offsets
 struct HexRingBoardView2: View {
     let radius = 1
-    var hexes: [Hex] {
-        hexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)
-    }
+    var ring: HexRing { HexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)}
 
     var body: some View {
         GeometryReader { geometry in
             let size = min(geometry.size.width, geometry.size.height)
-            let hexSize = size / CGFloat(hexRingWidth(radius: radius))
+            let hexSize = size / CGFloat(ring.width)
             let layout = Layout(orientation: Layout.flat,
                                 size: Point(x: hexSize, y: hexSize),
                                 origin: Point(x: geometry.size.width / 2, y: geometry.size.height / 2))
-            let points = hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
+            let points = ring.hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
             // let _ = print("### hexes.count= \(hexes.count)")
             // let _ = print("size= \(size) layout= \(layout)")
             ZStack {
@@ -81,21 +79,19 @@ struct HexRingBoardView2: View {
 
 // LOOKS GOOD
 struct HexRingBoardView3: View {
-    let radius = 2
-    var hexes: [Hex] {
-        hexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)
-    }
+    let radius = 3
+    var ring: HexRing { HexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)}
 
     var body: some View {
         GeometryReader { geometry in
             let size = min(geometry.size.width, geometry.size.height)
-            let hexSide = size / CGFloat(hexRingWidth(radius: radius))
+            let hexSide = size / CGFloat(ring.width)
             let hexSize = CGSize(width: hexSide * 2, height: hexSide * 2)
             let hexSize2 = CGSize(width: hexSide, height: hexSide)
             let layout = Layout(orientation: Layout.flat,
                                 size: Point(x: hexSide, y: hexSide),
                                 origin: Point(x: geometry.size.width / 2, y: geometry.size.height / 2))
-            let points = hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
+            let points = ring.hexes.map { Point2(point: layout.hexToPixel(h: $0)) }
             // let _ = print("### hexes.count= \(hexes.count)")
             // let _ = print("size= \(size) layout= \(layout)")
             ZStack {

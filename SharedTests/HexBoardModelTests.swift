@@ -13,51 +13,51 @@ class HexBoardModelTests: XCTestCase {
 
     override func tearDownWithError() throws {}
 
-    func test_hexRing() {
+    func test_HexRing() {
         do {
-            let ring = hexRing(radius: -1)
-            XCTAssertEqual(ring.count, 1)
-            XCTAssertEqual(ring[0], Hex(q: 0, r: 0, s: 0))
+            let ring = HexRing(radius: -1)
+            XCTAssertEqual(ring.hexes.count, 1)
+            XCTAssertEqual(ring.hexes[0], Hex(q: 0, r: 0, s: 0))
         }
         do {
-            let ring = hexRing(radius: 0)
-            XCTAssertEqual(ring.count, 1)
-            XCTAssertEqual(ring[0], Hex(q: 0, r: 0, s: 0))
+            let ring = HexRing(radius: 0)
+            XCTAssertEqual(ring.hexes.count, 1)
+            XCTAssertEqual(ring.hexes[0], Hex(q: 0, r: 0, s: 0))
         }
         do {
-            let ring = hexRing(radius: 3)
-            XCTAssertEqual(ring.count, 18)
+            let ring = HexRing(radius: 3)
+            XCTAssertEqual(ring.hexes.count, 18)
         }
         do {
-            XCTAssertEqual(hexRingWidth(radius: -1), 2)
-            XCTAssertEqual(hexRingWidth(radius: 0), 2)
-            XCTAssertEqual(hexRingWidth(radius: 1), 5)
-            XCTAssertEqual(hexRingWidth(radius: 2), 8)
-            XCTAssertEqual(hexRingWidth(radius: 3), 11)
+            XCTAssertEqual(HexRing(radius: -1).width, 2)
+            XCTAssertEqual(HexRing(radius: 0).width, 2)
+            XCTAssertEqual(HexRing(radius: 1).width, 5)
+            XCTAssertEqual(HexRing(radius: 2).width, 8)
+            XCTAssertEqual(HexRing(radius: 3).width, 11)
         }
     }
 
-    func test_hexSpiral() {
+    func test_HexSpiral() {
         do {
-            let spiral = hexSpiral(radius: -1)
-            XCTAssertEqual(spiral.count, 1)
+            let spiral = HexSpiral(radius: -1)
+            XCTAssertEqual(spiral.hexes.count, 1)
         }
         do {
-            let spiral = hexSpiral(radius: 0)
-            XCTAssertEqual(spiral.count, 1)
+            let spiral = HexSpiral(radius: 0)
+            XCTAssertEqual(spiral.hexes.count, 1)
         }
         do {
-            let spiral = hexSpiral(radius: 3)
-            XCTAssertEqual(spiral.count, 37)
+            let spiral = HexSpiral(radius: 3)
+            XCTAssertEqual(spiral.hexes.count, 37)
         }
         do {
-            XCTAssertEqual(spiralN(for: 3), 37)
+            XCTAssertEqual(HexSpiral(radius: 3).n, 37)
 
-            XCTAssertEqual(spiralR(for: 38), 4)
-            XCTAssertEqual(spiralR(for: 37), 3)
-            XCTAssertEqual(spiralR(for: 36), 3)
-            XCTAssertEqual(spiralR(for: 20), 3)
-            XCTAssertEqual(spiralR(for: 19), 2)
+            XCTAssertEqual(HexSpiral(n: 38).radius, 4)
+            XCTAssertEqual(HexSpiral(n: 37).radius, 3)
+            XCTAssertEqual(HexSpiral(n: 36).radius, 3)
+            XCTAssertEqual(HexSpiral(n: 20).radius, 3)
+            XCTAssertEqual(HexSpiral(n: 19).radius, 2)
         }
     }
 }
