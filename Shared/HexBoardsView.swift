@@ -25,12 +25,12 @@ struct Point2: Identifiable {
     }
 }
 
-struct Point3: Identifiable {
-    let id = UUID()
-    let point: Point
-    var x: CGFloat{ point.x}
-    var y: CGFloat{ point.x}
- }
+//struct Point3: Identifiable {
+//    let id = UUID()
+//    let point: Point
+//    var x: CGFloat { point.x }
+//    var y: CGFloat { point.x }
+//}
 
 struct Hex2: Identifiable {
     let id = UUID()
@@ -53,8 +53,8 @@ let layout = Layout(orientation: Layout.flat,
                     size: Point(x: 20, y: 20),
                     origin: Point(x: 0, y: 0))
 
-let centerHexCorners = layout.polygonCorners(h: Hex(q: 0, r: 0, s: 0))
-    .map { $0.cgPoint }
+//let centerHexCorners = layout.polygonCorners(h: Hex.zero)
+//    .map { $0.cgPoint }
 
 public struct Polygon: Shape {
     let corners: [CGPoint]
@@ -110,7 +110,7 @@ struct HexRingsBoardsView: View {
             // Polygon(corners: centerHexCorners).stroke(.red)
 //            Polygon2(layout: layout, hex: Hex(q: 2, r: 2, s: -4)).stroke(.blue)
 
-//            Polygon2(layout: layout, hex: Hex(q: 0, r: 0, s: 0)).stroke(.blue)
+//            Polygon2(layout: layout, hex: Hex.zero).stroke(.blue)
             ZStack {
                 HexRingsBoardView(hexes2: HexRing(radius: 1).hexes
                     .map { Hex2(hex: $0) })

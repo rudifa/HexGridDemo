@@ -49,7 +49,7 @@ struct HexagonView3: View {
 // OK but not understood offsets
 struct HexRingBoardView2: View {
     let radius = 1
-    var ring: HexRing { HexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)}
+    var ring: HexRing { HexRing(center: .zero, radius: radius)}
 
     var body: some View {
         GeometryReader { geometry in
@@ -80,7 +80,7 @@ struct HexRingBoardView2: View {
 // LOOKS GOOD
 struct HexRingBoardView3: View {
     let radius = 3
-    var ring: HexRing { HexRing(center: Hex(q: 0, r: 0, s: 0), radius: radius)}
+    var ring: HexRing { HexRing(center: .zero, radius: radius)}
 
     var body: some View {
         GeometryReader { geometry in
@@ -104,6 +104,10 @@ struct HexRingBoardView3: View {
         }
     }
 }
+
+// TODO SpiralBoardView with decorated Hex
+// Should take an array of View
+// Look at the Set Game and emulate the CardModel and the CardView
 
 struct HexBoards2View: View {
     var body: some View {

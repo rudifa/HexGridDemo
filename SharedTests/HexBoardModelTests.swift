@@ -17,12 +17,12 @@ class HexBoardModelTests: XCTestCase {
         do {
             let ring = HexRing(radius: -1)
             XCTAssertEqual(ring.hexes.count, 1)
-            XCTAssertEqual(ring.hexes[0], Hex(q: 0, r: 0, s: 0))
+            XCTAssertEqual(ring.hexes[0], Hex.zero)
         }
         do {
             let ring = HexRing(radius: 0)
             XCTAssertEqual(ring.hexes.count, 1)
-            XCTAssertEqual(ring.hexes[0], Hex(q: 0, r: 0, s: 0))
+            XCTAssertEqual(ring.hexes[0], Hex.zero)
         }
         do {
             let ring = HexRing(radius: 3)

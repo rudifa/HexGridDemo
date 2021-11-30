@@ -8,11 +8,16 @@
 import HexGrid
 import SwiftUI
 
-struct HexRing {
+protocol HexBoard {
+    // Return an array of Hex
+    var hexes: [Hex] { get }
+}
+
+struct HexRing: HexBoard {
     let radius: Int
     let center: Hex
 
-    init(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) {
+    init(center: Hex = Hex.zero, radius: Int) {
         self.radius = max(0, radius)
         self.center = center
     }
@@ -41,16 +46,16 @@ struct HexRing {
     }
 }
 
-struct HexSpiral {
+struct HexSpiral: HexBoard {
     let n: Int // number of cells
     let center: Hex
 
-    init(center: Hex = Hex(q: 0, r: 0, s: 0), n: Int) {
+    init(center: Hex = .zero, n: Int) {
         self.center = center
         self.n = max(0, n)
     }
 
-    init(center: Hex = Hex(q: 0, r: 0, s: 0), radius: Int) {
+    init(center: Hex = .zero, radius: Int) {
         self.center = center
         n = HexSpiral.numberOfCells(for: radius)
     }
@@ -80,7 +85,6 @@ struct HexSpiral {
         let radius2 = max(radius, 0)
         return 1 + radius2 * (radius2 + 1) * 3
     }
-
 }
 
 struct HexBoardModel: View {
