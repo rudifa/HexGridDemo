@@ -6,7 +6,7 @@
 //
 
 import HexGrid
-import SwiftUI
+import Foundation
 
 protocol HexBoard {
     // Return an array of Hex
@@ -84,17 +84,5 @@ struct HexSpiral: HexBoard {
     static func numberOfCells(for radius: Int) -> Int {
         let radius2 = max(radius, 0)
         return 1 + radius2 * (radius2 + 1) * 3
-    }
-}
-
-struct HexBoardModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct HexBoardModel_Previews: PreviewProvider {
-    static var previews: some View {
-        HexBoardModel()
     }
 }

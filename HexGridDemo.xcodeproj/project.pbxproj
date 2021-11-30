@@ -124,6 +124,7 @@
 		9D49F1DD27562C040050F3C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9DEA43CD2751802600D6594D /* HexBoardModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,7 +177,6 @@
 				9D49F1DD27562C040050F3C8 /* Model */,
 				9D49F1DF27562C2A0050F3C8 /* View */,
 				9D49F1DE27562C0F0050F3C8 /* ViewModel */,
-				9DEA43CD2751802600D6594D /* HexBoardModel.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
