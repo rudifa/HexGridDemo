@@ -6,7 +6,7 @@
 //
 
 import HexGrid
-import Foundation
+import CoreGraphics
 
 protocol HexBoard {
     // Return an array of Hex
