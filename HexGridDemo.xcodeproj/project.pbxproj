@@ -112,6 +112,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D49F1DC27562BFB0050F3C8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */,
+				9DB3F08A275111DD00B9AD5B /* Assets.xcassets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9D49F1DD27562C040050F3C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D49F1DE27562C0F0050F3C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9D49F1DF27562C2A0050F3C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9DB3F089275111DB00B9AD5B /* ContentView.swift */,
+				9DDE1C742753D03100DEB34C /* HexBoardsView.swift */,
+				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9D52F5FC2752C5E4008258CF /* SharedTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,12 +172,11 @@
 		9DB3F087275111DB00B9AD5B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9DB3F089275111DB00B9AD5B /* ContentView.swift */,
+				9D49F1DC27562BFB0050F3C8 /* App */,
+				9D49F1DD27562C040050F3C8 /* Model */,
+				9D49F1DF27562C2A0050F3C8 /* View */,
+				9D49F1DE27562C0F0050F3C8 /* ViewModel */,
 				9DEA43CD2751802600D6594D /* HexBoardModel.swift */,
-				9DDE1C742753D03100DEB34C /* HexBoardsView.swift */,
-				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
-				9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */,
-				9DB3F08A275111DD00B9AD5B /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
