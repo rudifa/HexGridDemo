@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = GameViewModel()
     var body: some View {
         NavigationView {
             List {
@@ -19,7 +20,7 @@ struct ContentView: View {
 
                 NavigationLink(destination: { HexRingBoardView3() }, label: { Text("Hex Ring Board View 3") })
 
-                NavigationLink(destination: { GameView() }, label: { Text("Game View") })
+                NavigationLink(destination: { GameView(viewModel: viewModel) }, label: { Text("Game View") })
             }
             .navigationTitle(Text("Demos"))
             .padding()
