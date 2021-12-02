@@ -11,6 +11,7 @@
 		9D49F1E827562E8D0050F3C8 /* GameView0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D49F1E627562E8D0050F3C8 /* GameView0.swift */; };
 		9D49F1EA275632FC0050F3C8 /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D49F1E9275632FC0050F3C8 /* GameBoardView.swift */; };
 		9D49F1EB275632FC0050F3C8 /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D49F1E9275632FC0050F3C8 /* GameBoardView.swift */; };
+		9D51243627596B930095DE5A /* Seven Segment.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D51243527596B930095DE5A /* Seven Segment.ttf */; };
 		9D52F5FE2752C629008258CF /* HexBoardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */; };
 		9D52F5FF2752C643008258CF /* HexBoardModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */; };
 		9D52F6002752C64F008258CF /* HexBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA43CD2751802600D6594D /* HexBoardModel.swift */; };
@@ -25,8 +26,6 @@
 		9D8E6378275903C900A85BCF /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E6374275903C900A85BCF /* GameState.swift */; };
 		9D8E637B275903FA00A85BCF /* SimpleTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E637A275903FA00A85BCF /* SimpleTimer.swift */; };
 		9D8E637C275903FA00A85BCF /* SimpleTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E637A275903FA00A85BCF /* SimpleTimer.swift */; };
-		9D8E6385275958A700A85BCF /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 9D8E6384275958A700A85BCF /* Fonts */; };
-		9D8E6386275958A700A85BCF /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 9D8E6384275958A700A85BCF /* Fonts */; };
 		9D8E6389275959A700A85BCF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E6388275959A700A85BCF /* GameView.swift */; };
 		9D8E638A275959A700A85BCF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8E6388275959A700A85BCF /* GameView.swift */; };
 		9DB3F0A1275111DD00B9AD5B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB3F0A0275111DD00B9AD5B /* Tests_iOS.swift */; };
@@ -71,13 +70,13 @@
 /* Begin PBXFileReference section */
 		9D49F1E627562E8D0050F3C8 /* GameView0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView0.swift; sourceTree = "<group>"; };
 		9D49F1E9275632FC0050F3C8 /* GameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		9D51243527596B930095DE5A /* Seven Segment.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Seven Segment.ttf"; sourceTree = "<group>"; };
 		9D52F5FD2752C629008258CF /* HexBoardModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBoardModelTests.swift; sourceTree = "<group>"; };
 		9D8E6370275903A000A85BCF /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewModel.swift; path = ../../../Set/Shared/ViewModel/GameViewModel.swift; sourceTree = "<group>"; };
 		9D8E6373275903C800A85BCF /* CardPack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPack.swift; sourceTree = "<group>"; };
 		9D8E6374275903C900A85BCF /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		9D8E637A275903FA00A85BCF /* SimpleTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTimer.swift; sourceTree = "<group>"; };
 		9D8E63832759586200A85BCF /* HexGridDemo--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HexGridDemo--iOS--Info.plist"; sourceTree = "<group>"; };
-		9D8E6384275958A700A85BCF /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		9D8E63872759592300A85BCF /* HexGridDemo--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HexGridDemo--macOS--Info.plist"; sourceTree = "<group>"; };
 		9D8E6388275959A700A85BCF /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexGridDemoApp.swift; sourceTree = "<group>"; };
@@ -141,7 +140,7 @@
 		9D49F1DC27562BFB0050F3C8 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				9D8E6384275958A700A85BCF /* Fonts */,
+				9D51243427596B540095DE5A /* Fonts */,
 				9DB3F088275111DB00B9AD5B /* HexGridDemoApp.swift */,
 				9DB3F08A275111DD00B9AD5B /* Assets.xcassets */,
 			);
@@ -177,6 +176,14 @@
 				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9D51243427596B540095DE5A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9D51243527596B930095DE5A /* Seven Segment.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		9D52F5FC2752C5E4008258CF /* SharedTests */ = {
@@ -436,7 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DB3F0B4275111DD00B9AD5B /* Assets.xcassets in Resources */,
-				9D8E6385275958A700A85BCF /* Fonts in Resources */,
+				9D51243627596B930095DE5A /* Seven Segment.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,7 +452,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DB3F0B5275111DD00B9AD5B /* Assets.xcassets in Resources */,
-				9D8E6386275958A700A85BCF /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

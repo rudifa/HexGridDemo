@@ -16,6 +16,7 @@ struct GameView: View {
         ZStack {
             // Color.walnut.edgesIgnoringSafeArea(.all)
 //            Color.mahogany6.edgesIgnoringSafeArea(.all)
+            Color.blue
             VStack {
                 HStack {
                     SameWidth(view: TitledInfo(title: "Score", info: "\(viewModel.game.score)"))
