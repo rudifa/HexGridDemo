@@ -25,7 +25,7 @@ struct CardPack {
         }
     }
 
-    struct Card: Identifiable, Equatable, CustomStringConvertible {
+    struct Card: Identifiable, Hashable, Equatable, CustomStringConvertible {
         let id: Int
         let features: Features
         var isSelected = false
@@ -34,7 +34,7 @@ struct CardPack {
             "id: \(id) \(features.number) \(features.color) \(features.shading) \(features.symbol) isSelected: \(isSelected)"
         }
 
-        struct Features: Equatable {
+        struct Features: Hashable, Equatable {
             let number: Enumber
             let color: Ecolor
             let shading: Eshading

@@ -7,6 +7,42 @@
 
 import SwiftUI
 
+// MARK: - alternative for tests
+// model
+struct Item: Identifiable, Hashable {
+    let id: Int
+    var value: Int {
+        id
+    }
+}
+
+// viewModel
+
+func items(n: Int) -> [Item] {
+    return [Int](0 ..< n).map { Item(id: $0) }
+}
+
+// view
+
+struct ItemView: View {
+    let item: Item
+
+    var body: some View {
+        HStack(alignment: .center) {
+            Image(systemName: "\(item.value).circle")
+            Text("\(1000 * item.value)")
+        }
+    }
+}
+
+struct CardView: View {
+    let card: CardPack.Card
+    var body: some View {
+        Text(card.description)
+    }
+}
+
+
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
 
@@ -26,14 +62,16 @@ struct GameView: View {
                 }
                 .padding(5)
 
-//                AspectVGrid(items: viewModel.game.cards, aspectRatio: 2 / 3) { item in
-//                    CardView(item, matched: viewModel.game.matched)
-//                        .onTapGesture {
-//                            // print("tap \(item.id)")
-//                            viewModel.touched(item)
-//                        }
+
+//                GameBoardView(items: items(n: 10)) { item in
+//                    ItemView(item: item)
 //                }
-//                .padding(5)
+
+
+                GameBoardView(items: viewModel.game.cards) { item in
+                    CardView(card: item)
+                }
+
 
                 VStack {
                     if viewModel.game.isGameOver {
@@ -133,4 +171,3 @@ struct GameView_Previews: PreviewProvider {
         GameView(viewModel: svModel)
     }
 }
-

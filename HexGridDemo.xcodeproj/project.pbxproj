@@ -171,9 +171,6 @@
 				9DB3F089275111DB00B9AD5B /* ContentView.swift */,
 				9D49F1E9275632FC0050F3C8 /* GameBoardView.swift */,
 				9D8E6388275959A700A85BCF /* GameView.swift */,
-				9D49F1E627562E8D0050F3C8 /* GameView0.swift */,
-				9DDE1C742753D03100DEB34C /* HexBoardsView.swift */,
-				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,6 +181,16 @@
 				9D51243527596B930095DE5A /* Seven Segment.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9D512437275970850095DE5A /* View-dev */ = {
+			isa = PBXGroup;
+			children = (
+				9D49F1E627562E8D0050F3C8 /* GameView0.swift */,
+				9DDE1C742753D03100DEB34C /* HexBoardsView.swift */,
+				9DDE1C772753D22D00DEB34C /* HexBoards2View.swift */,
+			);
+			path = "View-dev";
 			sourceTree = "<group>";
 		};
 		9D52F5FC2752C5E4008258CF /* SharedTests */ = {
@@ -234,6 +241,7 @@
 				9D49F1DD27562C040050F3C8 /* Model */,
 				9D8E6379275903DA00A85BCF /* Util */,
 				9D49F1DF27562C2A0050F3C8 /* View */,
+				9D512437275970850095DE5A /* View-dev */,
 				9D49F1DE27562C0F0050F3C8 /* ViewModel */,
 			);
 			path = Shared;
